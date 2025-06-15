@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI Journey Begins!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: linear-gradient(to bottom, #ff1a1a 50%, #ffffff 50%);
+            padding: 20px;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 8px solid #000;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            z-index: 1;
+        }
+        .content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 80%;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            color: #333;
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .pokemon-theme {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>My AI Journey Begins!</h1>
+            <p>Welcome to the start of my AI learning adventure. Like a trainer starting their journey, I'm ready to catch 'em all in the world of artificial intelligence!</p>
+            <div class="pokemon-theme">Gotta Code 'em All!</div>
+        </div>
+    </div>
+</body>
+</html> 
