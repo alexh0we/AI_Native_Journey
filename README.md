@@ -43,6 +43,15 @@ Ready to start your journey? Here's your trainer's guide to becoming an AI Maste
    - Experiment with the examples (like trying new Pokémon moves)
    - Apply what you learn (because knowledge is power, but application is like having a level 100 team)
 
+## Daily Learning Progress
+
+### Day 2 - Welcome Messages & Web Development
+- **welcome_message_generator.py**: A Python script that generates personalized welcome messages with user input handling
+- **my_ai_journey.html**: A Pokéball-themed HTML page showcasing web development skills with CSS styling
+
+### Day 3 - Interactive Python Programming
+- **hello_world.py**: An interactive Python program that asks for a user's name and creates personalized greetings using f-string formatting
+
 ## Purpose
 - Document our learning progress (because even Pikachu needs to level up)
 - Share knowledge and resources (sharing is caring, just like sharing Rare Candies)
