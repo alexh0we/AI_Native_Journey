@@ -9,44 +9,27 @@ def generate_welcome_message(name, mood):
     Returns:
         A personalized welcome message (string).
     """
-    # Handle empty name case
-    if not name.strip():
-        base_message = "Hello! Welcome to our community. We're happy to have you here."
-        return add_mood_to_message(base_message, mood)
-    
-    # Convert mood to lowercase for consistent comparison
-    mood = mood.lower() if mood else ""
-    
-    # Special greeting for Alex Howe with mood
-    if name.lower() == "alex howe":
-        base_message = f"Hey, it's the awesome AI Director, {name}!"
-        return add_mood_to_message(base_message, mood)
-    
-    # VIP/Admin Recognition with mood
-    vip_users = ["sarah admin", "john manager", "emma vip"]
-    if name.lower() in vip_users:
-        base_message = f"Welcome back, {name}! Your VIP status is active. 🎉"
-        return add_mood_to_message(base_message, mood)
-    
-    # Regular greeting with mood
-    base_message = f"Hello, {name}! Welcome to our community. We're happy to have you here."
-    return add_mood_to_message(base_message, mood)
+    # Clean up input
+    name = name.strip() if name else ""
+    mood = mood.lower().strip() if mood else ""
 
-def add_mood_to_message(base_message, mood):
-    """
-    Adds mood-based enhancement to a base message.
-    
-    Args:
-        base_message: The base welcome message (string).
-        mood: The person's mood (string).
-        
-    Returns:
-        Enhanced message with mood consideration (string).
-    """
+    # Handle empty name case
+    if not name:
+        base_message = "Hello! Welcome to our community. We're happy to have you here."
+    # Special greeting for Alex Howe
+    elif name.lower() == "alex howe":
+        base_message = f"Hey, it's the awesome AI Director, {name}!"
+    # VIP/Admin Recognition
+    elif name.lower() in ["sarah admin", "john manager", "emma vip"]:
+        base_message = f"Welcome back, {name}! Your VIP status is active. 🎉"
+    # Regular greeting
+    else:
+        base_message = f"Hello, {name}! Welcome to our community. We're happy to have you here."
+
+    # Mood-based enhancements (all handled here)
     if not mood:
-        return f"{base_message} Feeling ''? We don't have a script for that mood, but we welcome all moods here! 😄"
-    
-    if mood == "happy":
+        return base_message
+    elif mood == "happy":
         return f"{base_message} Great to see you're happy - your positive energy is contagious! 😊"
     elif mood == "sad":
         return f"{base_message} We're here for you and hope our community can brighten your day! 🌟"
@@ -57,7 +40,7 @@ def add_mood_to_message(base_message, mood):
     elif mood == "other":
         return f"{base_message} You're feeling 'other'? That's mysterious! We love a little mystery around here. 🕵️‍♂️"
     else:
-        return f"{base_message} Feeling '{mood}'? We don't have a script for that mood, but you're welcome here no matter what! 😄"
+        return f"{base_message} Feeling '{mood}'? We don't have a script for that mood, but we welcome all moods here! 😄"
 
 # --- Example Usage ---
 if __name__ == "__main__":
