@@ -46,11 +46,12 @@ Ready to start your journey? Here's your trainer's guide to becoming an AI Maste
 ## Daily Learning Progress
 
 ### Day 2 - Welcome Messages & Web Development
-- **welcome_message_generator.py**: An enhanced Python script that generates personalized welcome messages with VIP user recognition, mood-based responses, and special case handling for Alex Howe
-  - Demonstrates integrated function design with `generate_welcome_message()` and `add_mood_to_message()` helper function
-  - Features VIP user recognition system with special greetings for Sarah Admin, John Manager, and Emma VIP
-  - Includes emotional intelligence with mood-based responses (happy, sad, excited, tired) enhanced with emojis
-  - Shows advanced conditional logic, string formatting, list membership checking, and user input handling
+- **welcome_message_generator.py**: A Python script that generates personalized welcome messages using a single, streamlined function. The script now:
+  - Crafts greetings based on the user's name and mood in one function for clarity and simplicity
+  - Recognizes VIP users (Sarah Admin, John Manager, Emma VIP) and gives Alex Howe a unique AI Director message
+  - Handles moods (happy, sad, excited, tired, other) with custom, emoji-enhanced responses
+  - Provides a cheeky, welcoming message for unrecognized moods, and simply greets the user if no mood is entered
+  - Demonstrates advanced conditional logic, string formatting, and robust user input handling
 - **my_ai_journey.html**: A Pokéball-themed HTML page showcasing web development skills with CSS styling
 
 ### Day 3 - Interactive Python Programming
