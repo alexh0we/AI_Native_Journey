@@ -24,7 +24,7 @@ def generate_welcome_message(name, mood):
         base_message = f"Welcome back, {name}! Your VIP status is active. 🎉"
     # Regular greeting
     else:
-        base_message = f"Hello, {name}! Welcome to our community. We're happy to have you here."
+    base_message = f"Hello, {name}! Welcome to our community. We're happy to have you here."
 
     # Mood-based enhancements (all handled here)
     if not mood:

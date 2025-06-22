@@ -1,0 +1,109 @@
+import json
+import os
+from datetime import date, timedelta
+
+# --- Data Persistence Functions (I/O) ---
+DATA_FILE = "week_2/habits.json"
+
+def load_data():
+    """Handles loading habits from the JSON file."""
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+def save_data(habits):
+    """Handles saving habits to the JSON file."""
+    with open(DATA_FILE, "w") as f:
+        json.dump(habits, f, indent=2)
+
+# --- Core Logic Functions (No I/O) ---
+
+def core_add_habit(habits, habit_name):
+    """Logic to add a new habit."""
+    if habit_name and habit_name not in habits:
+        habits[habit_name] = {"total": 0, "streak": 0, "last_done": ""}
+        return habits, f"Added habit: {habit_name}"
+    return habits, "Habit already exists or is invalid."
+
+def core_mark_habit(habit_data, today):
+    """Logic to update a single habit's progress."""
+    yesterday = str(today - timedelta(days=1))
+    today_str = str(today)
+
+    if habit_data["last_done"] == today_str:
+        return habit_data, f"Already marked for today."
+    
+    habit_data["total"] += 1
+    if habit_data["last_done"] == yesterday:
+        habit_data["streak"] += 1
+    else:
+        habit_data["streak"] = 1
+    habit_data["last_done"] = today_str
+    return habit_data, f"Great job! Current streak: {habit_data['streak']}"
+
+def core_reset_streak(habit_data, today):
+    """Logic to reset a habit's streak if not done."""
+    if habit_data["last_done"] != str(today):
+        habit_data["streak"] = 0
+    return habit_data
+
+# --- User Interface (UI) Functions (Handles I/O) ---
+
+def ui_add_habit(habits):
+    """Handles the user input and output for adding a habit."""
+    habit_name = input("Enter a new habit to track: ").strip()
+    updated_habits, message = core_add_habit(habits, habit_name)
+    print(message)
+    return updated_habits
+
+def ui_mark_habits(habits):
+    """Handles the user input and output for marking habits."""
+    today = date.today()
+    for habit, data in habits.items():
+        response = input(f"Did you complete '{habit}' today? (y/n): ").strip().lower()
+        if response == 'y':
+            updated_data, message = core_mark_habit(data, today)
+            habits[habit] = updated_data
+            print(f"For '{habit}': {message}")
+        else:
+            habits[habit] = core_reset_streak(data, today)
+    return habits
+
+def ui_show_progress(habits):
+    """Handles the output for displaying habit progress."""
+    print("\n--- Your Habit Progress ---")
+    if not habits:
+        print("You haven't added any habits yet. Add one to get started!")
+    for habit, data in habits.items():
+        print(f"- {habit}: Total Completions: {data['total']}, Current Streak: {data['streak']} days")
+    print("--------------------------")
+
+def main():
+    """Main function to run the habit tracker application."""
+    habits = load_data()
+    while True:
+        print("\nHabit Tracker Menu:")
+        print("1. Add a new habit")
+        print("2. Mark habits for today")
+        print("3. Show progress")
+        print("4. Exit")
+        choice = input("Choose an option: ").strip()
+        
+        if choice == "1":
+            habits = ui_add_habit(habits)
+            save_data(habits)
+        elif choice == "2":
+            habits = ui_mark_habits(habits)
+            save_data(habits)
+        elif choice == "3":
+            ui_show_progress(habits)
+        elif choice == "4":
+            save_data(habits)
+            print("Goodbye! Keep up the good habits!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
