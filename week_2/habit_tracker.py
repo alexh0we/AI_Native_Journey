@@ -26,6 +26,13 @@ def core_add_habit(habits, habit_name):
         return habits, f"Added habit: {habit_name}"
     return habits, "Habit already exists or is invalid."
 
+def core_delete_habit(habits, habit_name):
+    """Logic to delete a habit."""
+    if habit_name in habits:
+        deleted_habit = habits.pop(habit_name)
+        return habits, f"Deleted habit: {habit_name} (Total completions: {deleted_habit['total']}, Final streak: {deleted_habit['streak']})"
+    return habits, f"Habit '{habit_name}' not found. Available habits: {', '.join(habits.keys()) if habits else 'none'}"
+
 def core_mark_habit(habit_data, today):
     """Logic to update a single habit's progress."""
     yesterday = str(today - timedelta(days=1))
@@ -79,6 +86,37 @@ def ui_show_progress(habits):
         print(f"- {habit}: Total Completions: {data['total']}, Current Streak: {data['streak']} days")
     print("--------------------------")
 
+def ui_delete_habit(habits):
+    """Handles the user input and output for deleting a habit."""
+    if not habits:
+        print("No habits to delete. Add some habits first!")
+        return habits
+    
+    print("\n--- Your Current Habits ---")
+    for habit in habits.keys():
+        print(f"- {habit}")
+    print("--------------------------")
+    
+    habit_name = input("Enter the name of the habit to delete: ").strip()
+    if not habit_name:
+        print("No habit name provided.")
+        return habits
+    
+    # Check if habit exists before asking for confirmation
+    if habit_name not in habits:
+        print(f"Habit '{habit_name}' not found. Please check the spelling and try again.")
+        return habits
+    
+    # Ask for confirmation only if habit exists
+    confirm = input(f"Are you sure you want to delete '{habit_name}'? This cannot be undone. (y/n): ").strip().lower()
+    if confirm == 'y':
+        updated_habits, message = core_delete_habit(habits, habit_name)
+        print(message)
+        return updated_habits
+    else:
+        print("Deletion cancelled.")
+        return habits
+
 def main():
     """Main function to run the habit tracker application."""
     habits = load_data()
@@ -87,7 +125,8 @@ def main():
         print("1. Add a new habit")
         print("2. Mark habits for today")
         print("3. Show progress")
-        print("4. Exit")
+        print("4. Delete a habit")
+        print("5. Exit")
         choice = input("Choose an option: ").strip()
         
         if choice == "1":
@@ -99,6 +138,9 @@ def main():
         elif choice == "3":
             ui_show_progress(habits)
         elif choice == "4":
+            habits = ui_delete_habit(habits)
+            save_data(habits)
+        elif choice == "5":
             save_data(habits)
             print("Goodbye! Keep up the good habits!")
             break
