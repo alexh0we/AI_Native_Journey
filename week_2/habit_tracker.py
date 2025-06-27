@@ -127,25 +127,27 @@ def main():
         print("3. Show progress")
         print("4. Delete a habit")
         print("5. Exit")
-        choice = input("Choose an option: ").strip()
-        
-        if choice == "1":
+        print("\nYou can use numbers (1-5) or type the option name (e.g., 'add', 'mark', 'show', 'delete', 'exit')")
+        choice = input("Choose an option: ").strip().lower()
+
+        if choice in ["1", "add a new habit", "add"]:
             habits = ui_add_habit(habits)
             save_data(habits)
-        elif choice == "2":
+        elif choice in ["2", "mark habits for today", "mark"]:
             habits = ui_mark_habits(habits)
             save_data(habits)
-        elif choice == "3":
+        elif choice in ["3", "show progress", "show"]:
             ui_show_progress(habits)
-        elif choice == "4":
+        elif choice in ["4", "delete a habit", "delete"]:
             habits = ui_delete_habit(habits)
             save_data(habits)
-        elif choice == "5":
+        elif choice in ["5", "exit"]:
             save_data(habits)
             print("Goodbye! Keep up the good habits!")
             break
         else:
             print("Invalid choice. Please try again.")
+            print("You can use: 1/add, 2/mark, 3/show, 4/delete, 5/exit")
 
 if __name__ == "__main__":
     main()
